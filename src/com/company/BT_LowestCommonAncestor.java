@@ -16,7 +16,7 @@ public class BT_LowestCommonAncestor {
     public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q){
         if(p.value < root.value && q.value < root.value)
             return lowestCommonAncestor(root.left, p, q);
-        else if(p.value < root.value && q.value < root.value){
+        else if(p.value > root.value && q.value > root.value){
             return lowestCommonAncestor(root.right, p, q);
         }
         return root;
