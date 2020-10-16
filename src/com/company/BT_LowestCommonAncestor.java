@@ -16,13 +16,26 @@ public class BT_LowestCommonAncestor {
     public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q){
         if(p.value < root.value && q.value < root.value)
             return lowestCommonAncestor(root.left, p, q);
-        else if(p.value < root.value && q.value < root.value){
+        else if(p.value > root.value && q.value > root.value){
             return lowestCommonAncestor(root.right, p, q);
         }
         return root;
     }
 
     public static void main(String[] args) {
+
+        /* Visual Representation of Tree
+        |   |   |   |   |   |   |   |   |
+        "
+                          6
+                      /      \
+                    2           8
+                  /   \       /   \
+                0       4    7     9
+                      /   \
+                     3     5
+         "
+         */
         BT_LowestCommonAncestor tree = new BT_LowestCommonAncestor();
         tree.root = new TreeNode(6);
         tree.root.left = new TreeNode(2);
@@ -36,10 +49,35 @@ public class BT_LowestCommonAncestor {
         tree.root.right.left = new TreeNode(7);
         tree.root.right.left = new TreeNode(9);
 
+
+        System.out.print("Visual Representation of Tree \n" +
+        "           6\n" +
+        "        |      | \n"+
+        "      2           8 \n" +
+        "     | |         | | \n"+
+        "    0   4       7   9 \n"+
+        "       | | \n" +
+        "      3   5 \n");
+
         TreeNode p = tree.root.left.left;
         TreeNode q = tree.root.left.right.right;
         TreeNode result = lowestCommonAncestor(tree.root, p, q);
-        System.out.print("Lowest Common Ancestor of Node " + p.value + " and Node " +
+        System.out.println("Result should be: Lowest Common Ancestor of Node 0 and Node 5 is: Node 2");
+        System.out.println("Lowest Common Ancestor of Node " + p.value + " and Node " +
+        q.value + " is: Node " + result.value);
+
+        p = tree.root.right.left;
+        q = tree.root.left.right.left;
+        result = lowestCommonAncestor(tree.root, p, q);
+        System.out.println("Result should be: Lowest Common Ancestor of Node 9 and Node 3 is: Node 6");
+        System.out.println("Lowest Common Ancestor of Node " + p.value + " and Node " +
+        q.value + " is: Node " + result.value);
+
+        p = tree.root.right;
+        q = tree.root.right.left;
+        result = lowestCommonAncestor(tree.root, p, q);
+        System.out.println("Result should be: Lowest Common Ancestor of Node 8 and Node 9 is: Node 8");
+        System.out.println("Lowest Common Ancestor of Node " + p.value + " and Node " +
         q.value + " is: Node " + result.value);
     }
 
