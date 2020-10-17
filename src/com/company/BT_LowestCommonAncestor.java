@@ -15,9 +15,18 @@ public class BT_LowestCommonAncestor {
 
     public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q){
         if(p.value < root.value && q.value < root.value)
-            return lowestCommonAncestor(root.left, p, q);
+            if(root.right == null) try {
+                return lowestCommonAncestor(root.left, p, q);
+            } catch (java.lang.NullPointerException leftNullNode){
+                System.out.print("It seems that one of the nodes you entered is not on the tree :<");
+            }
+
         else if(p.value > root.value && q.value > root.value){
-            return lowestCommonAncestor(root.right, p, q);
+            if(root.left == null) try {
+                return lowestCommonAncestor(root.right, p, q);
+            } catch (java.lang.NullPointerException rightNullNode){
+                System.out.print("It seems that one of the nodes you entered is not on the tree :<");
+            }
         }
         return root;
     }
@@ -66,6 +75,8 @@ public class BT_LowestCommonAncestor {
         System.out.println("Lowest Common Ancestor of Node " + p.value + " and Node " +
         q.value + " is: Node " + result.value);
 
+
+        // Added more Test Cases
         p = tree.root.right.left;
         q = tree.root.left.right.left;
         result = lowestCommonAncestor(tree.root, p, q);
@@ -79,6 +90,7 @@ public class BT_LowestCommonAncestor {
         System.out.println("Result should be: Lowest Common Ancestor of Node 8 and Node 9 is: Node 8");
         System.out.println("Lowest Common Ancestor of Node " + p.value + " and Node " +
         q.value + " is: Node " + result.value);
+
     }
 
 }
