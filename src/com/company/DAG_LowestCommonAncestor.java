@@ -1,84 +1,94 @@
 package com.company;
 
-public class DAG_LowestCommonAncestor {
-    BT_LowestCommonAncestor.TreeNode root;
+//For my implementation of DAG it makes much more sense to use a 2D array
+//so that I can compare my graph to a matrix
 
-    public static class TreeNode{
-        int value;
-        BT_LowestCommonAncestor.TreeNode left, right;
-        TreeNode(int x) {
-            value = x;
-            left = right = null;
-        }
+import java.util.LinkedList;
+
+public class DAG_LowestCommonAncestor {
+    //Node Class
+    class AdjListNode
+    {
+        private int v;
+        private int weight;
+        AdjListNode(int _v, int _w) { v = _v;  weight = _w; }
+        int getV() { return v; }
+        int getWeight()  { return weight; }
     }
 
-    public static BT_LowestCommonAncestor.TreeNode lowestCommonAncestor(BT_LowestCommonAncestor.TreeNode root, BT_LowestCommonAncestor.TreeNode p, BT_LowestCommonAncestor.TreeNode q){
-        if(p.value < root.value && q.value < root.value)
-            return lowestCommonAncestor(root.left, p, q);
-        else if(p.value > root.value && q.value > root.value)
-            return lowestCommonAncestor(root.right, p, q);
-        return root;
+    //DAG Graph
+    int V;
+    private LinkedList<AdjListNode>adj[];
+    private int[] visited;
+
+    DAG_LowestCommonAncestor(int v)
+    {
+        V=v;
+        adj = new LinkedList[V];
+        for (int i=0; i<v; ++i)
+            adj[i] = new LinkedList<AdjListNode>();
+        visited = new int[v];
+    }
+    void addEdge(int u, int v, int weight)
+    {
+        AdjListNode node = new AdjListNode(v,weight);
+        adj[u].add(node);// Add v to u's list
+    }
+
+
+
+    public static void lowestCommonAncestor(){
+        return;
+    }
+
+    public boolean checkIfAcyclic() {
+        int count = 0;
+        for(int i =0;i<V;i++){
+            visited[count]=i;
+            for(int j = 0; j<V;j++){
+                for(int k=0;k<V;k++){
+                    if(visited[k]==j && adj[i].get(j).getV()==1){
+                        return true;
+                    }
+                }
+            }
+            count++;
+        }
+        return false;
     }
 
     public static void main(String[] args) {
 
-        /* Visual Representation of Tree
-        |   |   |   |   |   |   |   |   |
-        "
-                          6
-                      /      \
-                    2           8
-                  /   \       /   \
-                0       4    7     9
-                      /   \
-                     3     5
-         "
-         */
-        BT_LowestCommonAncestor tree = new BT_LowestCommonAncestor();
-        tree.root = new BT_LowestCommonAncestor.TreeNode(6);
-        tree.root.left = new BT_LowestCommonAncestor.TreeNode(2);
-        tree.root.left.left = new BT_LowestCommonAncestor.TreeNode(0);
-
-        tree.root.left.right = new BT_LowestCommonAncestor.TreeNode(4);
-        tree.root.left.right.left = new BT_LowestCommonAncestor.TreeNode(3);
-        tree.root.left.right.right = new BT_LowestCommonAncestor.TreeNode(5);
-
-        tree.root.right = new BT_LowestCommonAncestor.TreeNode(8);
-        tree.root.right.left = new BT_LowestCommonAncestor.TreeNode(7);
-        tree.root.right.left = new BT_LowestCommonAncestor.TreeNode(9);
-
-
-        System.out.print("Visual Representation of Tree \n" +
-                "           6\n" +
-                "        |      | \n"+
-                "      2           8 \n" +
-                "     | |         | | \n"+
-                "    0   4       7   9 \n"+
-                "       | | \n" +
-                "      3   5 \n");
-
-        BT_LowestCommonAncestor.TreeNode p = tree.root.left.left;
-        BT_LowestCommonAncestor.TreeNode q = tree.root.left.right.right;
-        BT_LowestCommonAncestor.TreeNode result = lowestCommonAncestor(tree.root, p, q);
-        System.out.println("Result should be: Lowest Common Ancestor of Node 0 and Node 5 is: Node 2");
-        System.out.println("Lowest Common Ancestor of Node " + p.value + " and Node " +
-                q.value + " is: Node " + result.value);
+        DAG_LowestCommonAncestor g = new DAG_LowestCommonAncestor(6);
+        g.addEdge(0, 1, 5);
+        g.addEdge(0, 2, 3);
+        g.addEdge(0, 5, 3);
+        g.addEdge(1, 3, 6);
+        g.addEdge(1, 2, 2);
+        g.addEdge(2, 4, 4);
+        g.addEdge(2, 5, 2);
+        g.addEdge(2, 3, 7);
+        g.addEdge(3, 4, -1);
+        g.addEdge(4, 5, -2);
+        //Print Graph
+        for(int i =0; i < g.V; i++) {
+            for(int j=0; j < g.adj[i].size(); j++) {
+                System.out.print(i + "-> " + g.adj[i].get(j).getV() + " ");
+            }
+            System.out.println("");
+        }
+        if(g.checkIfAcyclic()) {
+            System.out.print("Mama Mia! There no cycle!");
+        } else {
+            System.out.println("Graph is not Acyclic, please re-create");
+        }
 
 
-        // Added more Test Cases
-        p = tree.root.right.left;
-        q = tree.root.left.right.left;
-        result = lowestCommonAncestor(tree.root, p, q);
-        System.out.println("Result should be: Lowest Common Ancestor of Node 9 and Node 3 is: Node 6");
-        System.out.println("Lowest Common Ancestor of Node " + p.value + " and Node " +
-                q.value + " is: Node " + result.value);
 
-        p = tree.root.right;
-        q = tree.root.right.left;
-        result = lowestCommonAncestor(tree.root, p, q);
-        System.out.println("Result should be: Lowest Common Ancestor of Node 8 and Node 9 is: Node 8");
-        System.out.println("Lowest Common Ancestor of Node " + p.value + " and Node " +
-                q.value + " is: Node " + result.value);
-
+        //
+        //0 -> 1 -> 3
+        //     !
+        //  -> 2 -> 4
+        //       -> 5
     }
 }

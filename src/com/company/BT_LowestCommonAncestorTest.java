@@ -62,13 +62,14 @@ class BT_LowestCommonAncestorTest {
 
         */
 
-        BT_LowestCommonAncestor.TreeNode p = tree.root.left.left;
-        BT_LowestCommonAncestor.TreeNode q = tree.root.left.right.right;
+        BT_LowestCommonAncestor.TreeNode p = tree.root.left.left; //0
+        BT_LowestCommonAncestor.TreeNode q = tree.root.left.right.right; //5
         BT_LowestCommonAncestor.TreeNode result = BT_LowestCommonAncestor.lowestCommonAncestor(tree.root, p, q);
         assertEquals(p.value, 0);
         assertEquals(q.value, 5);
+        assertEquals(2, result.value, "lowestCommonAncestor(0, 5) = 2");
+        //Node Nodes as above but using different syntax
         assertEquals(2, BT_LowestCommonAncestor.lowestCommonAncestor(tree.root, p, q).value, "lowestCommonAncestor(0, 5) = 2");
-
         // Another example test
         assertEquals(6, BT_LowestCommonAncestor.lowestCommonAncestor(tree.root, tree.root.right.left, tree.root.left.right.left).value, "lowestCommonAncestor(9, 3) = 6");
     }
