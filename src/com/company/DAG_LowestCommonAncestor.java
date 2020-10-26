@@ -58,7 +58,8 @@ public class DAG_LowestCommonAncestor {
         incE();
     }
 
-
+    // I wasn't able to think of a way to create a lowestCommonAncestor function using
+    // recursion so I went an used a matrix method instead
     public static AdjListNode lowestCommonAncestor(DAG_LowestCommonAncestor g, int v, int w) {
         if(g.checkIfAcyclic()) { return null; }
         int[] vArr = new int[g.E];
@@ -181,6 +182,5 @@ public class DAG_LowestCommonAncestor {
         }
         System.out.println(g.lowestCommonAncestor(g, 1, 5).getV()); //7
         System.out.println(g.lowestCommonAncestor(g, 5, 2).getV()); //7
-        System.out.println(g.lowestCommonAncestor(g, 0, 1).getV()); //2
     }
 }

@@ -49,6 +49,10 @@ public class DAG_LowestCommonAncestorTest {
         g.addEdge(7, 8);
         assertEquals(7,  g.lowestCommonAncestor(g, 5, 1).getV(), "LCA of 5,1 = 7");
         assertEquals(7,  g.lowestCommonAncestor(g, 1, 5).getV(), "LCA of 1,5 = 7");
+
+        assertEquals(4,  g.lowestCommonAncestor(g, 0, 2).getV(), "LCA of 0,2 = 4");
+        assertEquals(1,  g.lowestCommonAncestor(g, 0, 0).getV(), "LCA of 0,0 = 1");
+        assertEquals(8,  g.lowestCommonAncestor(g, 0, 7).getV(), "LCA of 0,7 = 8");
     }
 
     @Test
