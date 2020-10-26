@@ -31,12 +31,13 @@ public class DAG_LowestCommonAncestor {
     }
 
     //DAG Graph
-    private int E;
-    private int V;
+    int E;
+    int V;
     private LinkedList<AdjListNode> adj[];
     private int[] visited;
 
     DAG_LowestCommonAncestor(int v) {
+        if(v < 0) {throw new IllegalArgumentException("Needs more vertices to be a graph.");}
         V = v;
         E = 0;
         adj = new LinkedList[V];
@@ -95,7 +96,7 @@ public class DAG_LowestCommonAncestor {
         return null;//returns -1 if no ancestor found
     }
 
-    private boolean isCyclic(int i, boolean[] visited, boolean[] recStack) {
+    public boolean isCyclic(int i, boolean[] visited, boolean[] recStack) {
 
         // Mark the current node as visited and
         // part of recursion stack
