@@ -10,5 +10,9 @@ Added basic Unit Testing to my implementation.
 Added Actual JUnit Java Class
 -- 01:33 Finished JUnit Tests
 
-**17/10/2020**
+**26/10/2020**
  Began Directed Acyclic Graph Work
+ Finished DAG Work + Added Unit Tests
+ Added Check for Whether Graph is Cyclic
+ 
+**27/10/2020**

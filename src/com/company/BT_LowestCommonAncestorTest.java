@@ -16,7 +16,6 @@ class BT_LowestCommonAncestorTest {
         BT_LowestCommonAncestor tree = new BT_LowestCommonAncestor();
         System.out.println();
         assertEquals(tree.root, null, "Test the root of an empty tree");
-
     }
 
     @Test
